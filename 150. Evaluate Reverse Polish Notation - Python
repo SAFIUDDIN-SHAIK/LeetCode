@@ -1,0 +1,23 @@
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        op = []
+        nums = []
+        c = 0
+        s = "*+-/"
+        ans = 0
+        for i in tokens:
+            if i in s:
+                n2 = (nums.pop())
+                n1 = (nums.pop())
+                if i == "*":
+                    nums.append(int(n1*n2))
+                if i == "/":
+                    nums.append(int(n1/n2))
+                if i == "+":
+                    nums.append(int(n1+n2))
+                if i == "-":
+                    nums.append(int(n1-n2))
+            else:
+                nums.append(int(i))
+        return nums[-1]
+                        
