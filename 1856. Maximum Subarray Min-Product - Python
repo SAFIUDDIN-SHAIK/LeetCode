@@ -1,0 +1,13 @@
+class Solution:
+    def maxSumMinProduct(self, nums: List[int]) -> int:
+        ps = [0] + [i for i in itertools.accumulate(nums)]
+        s = []
+        ans = 0
+        for i in range(len(nums) + 1):
+            while s and (i == len(nums) or nums[s[-1]] > nums[i]):
+                m = nums[s.pop()]
+                t = ps[i] - ps[s[-1] + 1] if s else ps[i]
+                ans = max(ans, m * t)
+            s.append(i)
+        
+        return ans % int(1e9 + 7)
