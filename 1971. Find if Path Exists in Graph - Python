@@ -1,0 +1,23 @@
+import collections
+
+class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        d = collections.defaultdict(list)
+        for v1, v2 in edges:
+            d[v1].append(v2)
+            d[v2].append(v1)
+        
+        return self.find(d, source, destination)
+
+    def find(self, d: dict, s: int, e: int) -> bool:
+        l = [s]
+        f = set(l)
+        while l:
+            p = l.pop()
+            if p == e:
+                return True
+            for i in d[p][::-1]:
+                if i not in f:
+                    l.append(i)
+                    f.add(i)
+        return False
