@@ -1,0 +1,14 @@
+from collections import defaultdict
+
+class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        l = [False] * len(rooms)
+
+        def seen(d: int) -> List[bool]:
+            l[d] = True
+            for i in rooms[d]:
+                if not l[i]:
+                    seen(i)
+        
+        seen(0)
+        return False not in l
