@@ -1,0 +1,28 @@
+class Solution:
+  def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+    ans = [0] * n
+    l = [1] * n
+    d = defaultdict(set)
+
+    for u, v in edges:
+      d[u].add(v)
+      d[v].add(u)
+
+    def post(node, root=None):
+      for i in d[node]:
+        if i == root:
+          continue
+        post(i, node)
+        l[node] += l[i]
+        ans[node] += ans[i] + l[i]
+
+    def pre(node, root=None):
+      for i in d[node]:
+        if i == root:
+          continue
+        ans[i] = ans[node] - l[i] + (n - l[i])
+        pre(i, node)
+
+    post(0)
+    pre(0)
+    return ans
