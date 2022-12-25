@@ -1,0 +1,27 @@
+class Solution:
+    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:
+        nums.sort()
+        s = [0]
+        for i in nums:
+            s.append(s[-1] + i)
+        
+
+        ans = []
+        n = len(nums)
+        print(s)
+        for i in queries:
+            f = 0
+            for j in range(n+1):
+                if s[j] == i:
+                    ans.append(j)
+                    f = 1
+                    break
+                elif s[j] < i:
+                    continue
+                else:
+                    ans.append(j - 1)
+                    f = 1
+                    break
+            if not f:
+                ans.append(n)
+        return ans
