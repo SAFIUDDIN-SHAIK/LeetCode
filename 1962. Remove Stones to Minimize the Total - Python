@@ -1,0 +1,11 @@
+class Solution:
+    def minStoneSum(self, piles: List[int], k: int) -> int:
+        l = []
+        for i in range(len(piles)):
+            heappush(l, -piles[i])
+        # print(l)
+        for i in range(k):
+            p = heappop(l)
+            f = floor(p/2)
+            heappush(l, f)
+        return -sum(l)
