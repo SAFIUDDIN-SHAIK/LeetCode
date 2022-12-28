@@ -1,0 +1,14 @@
+class Solution:
+    def checkXMatrix(self, grid: List[List[int]]) -> bool:
+        n = len(grid)
+        for i in range(n):
+            for j in range(n):
+                if i == j or not (i + j + 1) % n:
+                    if grid[i][j]:
+                        continue
+                    return False
+                else:
+                    if grid[i][j]:
+                        return False
+                    continue
+        return True
