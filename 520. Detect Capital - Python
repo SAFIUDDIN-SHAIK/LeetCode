@@ -1,0 +1,26 @@
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        f = word[0]
+        if f.islower():
+            f = 1
+        else:
+            f = 0
+        c = 0
+        d = 0
+        e = 0
+        for i in word[1:]:
+            e += 1
+            if i.islower():
+                c = 0
+                if c != d:
+                    return False
+            else:
+                if e == 1:
+                    c = d = 1
+                else:
+                    c = 1
+                    if c != d:
+                        return False
+        if (f and not c) or (not f and c) or (not f and not c):
+            return True
+        return False
