@@ -1,0 +1,14 @@
+class Solution:
+    def minDeletionSize(self, strs: List[str]) -> int:
+        ans = 0
+        for i in range(len(strs[0])):
+            s = ""
+            l = []
+            for j in range(len(strs)):
+                s += strs[j][i]
+                l.append(strs[j][i])
+            l.sort()
+            s1 = "".join(l)
+            if s1 != s:
+                ans += 1
+        return ans
