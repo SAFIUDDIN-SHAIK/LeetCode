@@ -1,0 +1,7 @@
+class Solution:
+    def convertTemperature(self, celsius: float) -> List[float]:
+        f = (celsius * 1.8) + 32
+        k = celsius + 273.15
+        f = round(f, 5)
+        k = round(k, 5)
+        return [k, f]
