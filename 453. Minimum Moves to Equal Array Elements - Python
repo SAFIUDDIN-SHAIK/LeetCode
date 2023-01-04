@@ -1,0 +1,7 @@
+class Solution:
+    def minMoves(self, nums: List[int]) -> int:
+        ans = 0
+        m = min(nums)
+        for i in nums:
+            ans += i - m
+        return ans
