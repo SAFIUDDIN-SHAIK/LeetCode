@@ -1,0 +1,22 @@
+class Solution:
+    def getPermutation(self, n: int, p: int) -> str:
+        def fact(n):
+            if not n:
+                return 1
+            return fact(n-1)*n
+        
+        l=[i for i in range(1,n+1)]
+        t=n
+        ans=''
+        while t!=1:
+            k=fact(t-1)
+            q=p//k+1
+            if p%k==0:
+                q-=1
+            ans+=str(l[q-1])
+            t-=1
+            p-=k*(q-1)
+            # print(l,q)
+            l.remove(l[q-1])
+        ans+=str(l[0])
+        return ans
