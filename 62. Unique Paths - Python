@@ -1,0 +1,15 @@
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        ans=[]
+        for i in range(m):
+            t=[]
+            for j in range(n):
+                t.append(0)
+            ans.append(t)
+        for i in range(m):
+            for j in range(n):
+                if not i or not j:
+                    ans[i][j]=1
+                else:
+                    ans[i][j]=ans[i][j-1]+ans[i-1][j]
+        return ans[m-1][n-1]
