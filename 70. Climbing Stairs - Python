@@ -1,0 +1,13 @@
+class Solution:
+    def climbStairs(self, n: int) -> int:
+        # ans=0
+        first=0
+        second=1
+        n-=2
+        while n>=0:
+            # ans=second+first
+            temp=second
+            second+=first
+            first=temp
+            n-=1
+        return first+second
