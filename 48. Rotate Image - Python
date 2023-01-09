@@ -1,0 +1,22 @@
+class Solution:
+    def rotate(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        l=len(matrix)
+        ans=[]
+        temp=[]
+        for i in range(l):
+            for j in range(l):
+                temp.append(0)
+            ans.append(temp)
+            temp=[]
+        for i in range(l):
+            for j in range(l):
+                ans[i][j]=matrix[l-j-1][i]
+                # print(str(matrix[l-j-1][i])+' '+str(ans[i][j]),end='---')
+            # print(ans)
+        # print(ans)
+        for i in range(l):
+            for j in range(l):
+                matrix[i][j]=ans[i][j]
