@@ -1,0 +1,20 @@
+class Solution:
+    def groupThePeople(self, g: List[int]) -> List[List[int]]:
+        ans=[]
+        l=[]
+        for i in range(len(g)):
+            l.append([g[i],i])
+        l.sort()
+        t=l[0][0]
+        q=[]
+        for i in l:
+            if t:
+                q.append(i[1])
+                t-=1
+            else:
+                ans.append(q)
+                q=[i[1]]
+                t=i[0]-1
+                
+        ans.append(q)
+        return ans
