@@ -1,0 +1,23 @@
+class Solution:
+    def oddString(self, words: List[str]) -> str:
+        l = []
+        for i in range(len(words[0])-1):
+            l.append(ord(words[0][i+1]) - ord(words[0][i]))
+        t = []
+        for i in range(len(words[1]) - 1):
+            t.append(ord(words[1][i+1]) - ord(words[1][i]))
+        if l != t:
+            q = []
+            for i in range(len(words[1]) - 1):
+                q.append(ord(words[2][i+1]) - ord(words[2][i]))
+            if l == q:
+                return words[1]
+            else:
+                return words[0]
+        else:
+            for i in range(2,len(words)):
+                temp = []
+                for j in range(len(words[i]) - 1):
+                    temp.append(ord(words[i][j+1]) - ord(words[i][j]))
+                if temp != l:
+                    return words[i]
