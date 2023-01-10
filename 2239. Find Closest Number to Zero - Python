@@ -1,0 +1,23 @@
+class Solution:
+    def findClosestNumber(self, nums: List[int]) -> int:
+        """t=m=1000000
+        for i in nums:
+            if abs(i) < t:
+                if abs(i)==t:
+                    m=max(i,m)
+                else:
+                    t=abs(i)
+                    m = i"""
+        t=[]
+        for i in nums:
+            if i<0:
+                t.append(-i)
+            else:
+                t.append(i)
+        mi=min(t)
+        if -mi and mi in nums:
+            return mi
+        elif -mi in nums:
+            return -mi
+        else:
+            return mi
