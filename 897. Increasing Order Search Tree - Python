@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def increasingBST(self, root: TreeNode) -> TreeNode:
+        ans = TreeNode()
+        s = collections.deque([(root)])
+        l = []
+        while s:
+            l.append(s[0].val)
+            og = s.popleft()
+            if og.left:
+                s.append(og.left)
+            if og.right:
+                s.append(og.right)
+        l.sort()
+        temp = TreeNode()
+        def insert(i,n,obj):
+            if i == n:
+                return
+            obj = TreeNode(l[i])
+            i += 1
+            obj.right = insert(i,n,obj.right)
+            return obj
+        temp = insert(0,len(l),temp)
+        return temp
