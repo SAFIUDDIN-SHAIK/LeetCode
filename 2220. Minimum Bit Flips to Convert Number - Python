@@ -1,0 +1,9 @@
+class Solution:
+    def minBitFlips(self, start: int, goal: int) -> int:
+        c=0
+        while start or goal:
+            if (start&1 and not goal&1) or (not start&1 and goal&1):
+                c+=1
+            start=start>>1
+            goal=goal>>1
+        return c
