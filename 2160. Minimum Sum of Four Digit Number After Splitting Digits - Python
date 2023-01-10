@@ -1,0 +1,13 @@
+class Solution:
+    def minimumSum(self, num: int) -> int:
+        s=[i for i in str(num)]
+        s.sort()
+        new1=''
+        new2=''
+        for i in range(0,len(s),2):
+            new1+=s[i]
+            if len(s)%2==0:
+                new2+=s[i+1]
+            elif len(s)%2!=0 and i+1!=len(s):
+                new2+=s[i+1]
+        return int(new1)+int(new2)
