@@ -1,0 +1,15 @@
+class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        d = {}
+        for i in arr:
+            if i in d:
+                d[i] += 1
+            else:
+                d[i] = 1
+        d1 = {}
+        for i in d:
+            if d[i] in d1:
+                return False
+            else:
+                d1[d[i]] = True
+        return True
