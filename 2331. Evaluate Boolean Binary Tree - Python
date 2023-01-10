@@ -1,0 +1,20 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
+        
+        def traverse(obj):
+            if not obj.left and not obj.right:
+                return True if obj.val else False
+            if obj.val == 2:
+                ans = traverse(obj.left) | traverse(obj.right)
+            elif obj.val == 3:
+                ans = traverse(obj.left) & traverse(obj.right)
+            return ans
+        
+        ans = traverse(root)
+        return ans
