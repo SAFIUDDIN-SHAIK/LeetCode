@@ -1,0 +1,12 @@
+class Solution:
+    def numberOfBeams(self, bank: List[str]) -> int:
+        p=[]
+        
+        for i in bank:
+            if '1' in i:
+                s=i.count('1')
+                p.append(s)
+        s=0
+        for i in range(len(p)-1):
+            s+=p[i]*p[i+1]
+        return s
