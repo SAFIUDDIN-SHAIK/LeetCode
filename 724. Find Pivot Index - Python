@@ -1,0 +1,21 @@
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        left = [0]
+        right = [0]
+        for i in nums:
+            left.append(left[-1] + i)
+        for i in range(len(nums)-1,-1,-1):
+            right.append(right[-1] + nums[i])
+        r = []
+        right.append(0)
+        for i in range(len(right)-1,0,-1):
+            r.append(right[i])
+        r.append(0)
+        left.append(0)
+        ans = 0
+        for i in range(1,len(nums)+1):
+            if left[i-1] == r[i+1]:
+                return i - 1
+        print(left)
+        print(r)
+        return -1
