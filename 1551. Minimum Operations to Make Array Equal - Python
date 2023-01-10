@@ -1,0 +1,11 @@
+class Solution:
+    def minOperations(self, n: int) -> int:
+        if n%2==0:
+            s=0
+            for i in range(n//2):
+                s+=(2*i)+1
+        else:
+            s=0
+            for i in range(n//2+1):
+                s+=2*i
+        return s
