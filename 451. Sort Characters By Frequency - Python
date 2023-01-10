@@ -1,0 +1,20 @@
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        kv = []
+        d = {}
+        for i in s:
+            if i in d:
+                d[i] += 1
+            else:
+                d[i] = 1
+        for i in d:
+            kv.append([d[i],i])
+
+        kv.sort(reverse = True)
+
+        ans = ""
+        for i in kv:
+            t = i[1] * i[0]
+            ans += t
+
+        return ans
