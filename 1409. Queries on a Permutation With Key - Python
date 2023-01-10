@@ -1,0 +1,9 @@
+class Solution:
+    def processQueries(self, queries: List[int], m: int) -> List[int]:
+        l=list(range(1,m+1))
+        ans=[]
+        for i in queries:
+            c=l.index(i)
+            ans.append(c)
+            l=[l[c]]+l[:c]+l[c+1:]
+        return ans
