@@ -1,0 +1,19 @@
+class Solution:
+    def subsets(x):
+        if len(x)==0:
+            return [[]]
+        else:
+            l=[]
+            for i in Solution.subsets(x[1:]):
+                l.append(i)
+                l.append(i[:]+[x[0]])
+        return l
+    def subsetXORSum(self, nums: List[int]) -> int:
+        lt=Solution.subsets(nums)
+        s=0
+        for i in lt[1:]:
+            x=i[0]
+            for j in i[1:]:
+                x^=j
+            s+=x
+        return s
