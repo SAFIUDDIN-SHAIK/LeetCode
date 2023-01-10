@@ -1,0 +1,31 @@
+class Solution:
+    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
+        if not heights:
+            return heights
+        y, x = len(heights), len(heights[0])
+        ans, temp = [], []
+        for i in range(x * y):
+            temp.append(0)
+        def dfs(i,j,w,h):
+            cal = i * x + j
+            if temp[cal] & w or heights[i][j] < h:
+                return
+            temp[cal] += w
+            h = heights[i][j]
+            if temp[cal] == 3:
+                ans.append([i,j])
+            if i + 1 < y:
+                dfs(i + 1, j, w, h)
+            if i > 0:
+                dfs(i - 1, j, w, h)
+            if j + 1 < x:
+                dfs(i, j + 1, w, h)
+            if j > 0:
+                dfs(i, j - 1, w, h)
+        for i in range(y):
+            dfs(i, 0, 1, heights[i][0])
+            dfs(i, x - 1, 2, heights[i][x - 1])
+        for i in range(x):
+            dfs(0, i, 1, heights[0][i])
+            dfs(y - 1, i, 2, heights[y - 1][i])
+        return ans
