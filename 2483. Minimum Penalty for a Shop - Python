@@ -1,0 +1,21 @@
+class Solution:
+    def bestClosingTime(self, customers: str) -> int:
+        c = [0]
+        o = [0]
+        for i in customers[::-1]:
+            if i == "Y":
+                c.append(c[-1] + 1)
+            else:
+                c.append(c[-1])
+        for i in customers:
+            if i == "Y":
+                o.append(o[-1])
+            else:
+                o.append(o[-1] + 1)
+        s = []
+        for i in range(len(c)):
+            s.append(c[-i-1] + o[i])
+        m = min(s)
+        for i in range(len(o)):
+            if s[i] == m:
+                return i
