@@ -1,0 +1,18 @@
+class Solution:
+    def largestWordCount(self, messages: List[str], senders: List[str]) -> str:
+        d={}
+        for i in range(len(senders)):
+            l=len(list(messages[i].split()))
+            if senders[i] in d:
+                d[senders[i]]+=l
+            else:
+                d[senders[i]]=l
+        ans=[]
+        m=0
+        for i in d:
+            m=max(m,d[i])
+        for i in d:
+            if d[i]==m:
+                ans.append(i)
+        ans.sort()
+        return ans[-1]
