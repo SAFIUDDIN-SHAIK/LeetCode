@@ -1,0 +1,14 @@
+class Solution:
+    def maximumValue(self, strs: List[str]) -> int:
+        ans = 0
+        for i in strs:
+            f = 0
+            for j in i:
+                if j.isalpha():
+                    f = 1
+                    break
+            if f:
+                ans = max(ans,len(i))
+            else:
+                ans = max(ans,int(i))
+        return ans
