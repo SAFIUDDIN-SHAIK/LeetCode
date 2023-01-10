@@ -1,0 +1,13 @@
+class Solution:
+    def halvesAreAlike(self, s: str) -> bool:
+        n = len(s)
+        a = 'aeiouAEIOU'
+        c1 = c2 = 0
+        for i in s[:n//2]:
+            if i in a:
+                c1 += 1
+        for i in s[n//2:]:
+            if i in a:
+                c2 += 1
+        
+        return c1 == c2
