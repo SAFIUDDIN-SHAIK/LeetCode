@@ -1,0 +1,18 @@
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        l=len(isConnected)
+        v=[]
+        p=0
+        def dfs(x):
+            v.append(x)
+            print(x)
+            for j in range(l):
+                if j not in v and isConnected[x][j]:
+                    dfs(j)
+        for i in range(l):
+            if i not in v:
+                print(p)
+                p+=1
+                dfs(i)
+        print(v)
+        return p
