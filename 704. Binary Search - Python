@@ -1,0 +1,18 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        def bs(a,l,h):
+            m = (l + h)//2
+            # print(m,l,h)
+            if l > h or m == len(a):
+                return -1
+            if a[m] == target:
+                return m
+            elif a[m] < target:
+                l = m + 1
+            else:
+                h = m - 1
+            ans = bs(a,l,h)
+            return ans
+        ans = bs(nums,0,len(nums))
+        return ans
+        
