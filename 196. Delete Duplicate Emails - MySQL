@@ -1,0 +1,5 @@
+# Please write a DELETE statement and DO NOT write a SELECT statement.
+# Write your MySQL query statement below
+delete temp2 from Person temp1, Person temp2
+where temp1.email = temp2.email
+and temp1.id < temp2.id;
