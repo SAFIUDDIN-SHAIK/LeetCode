@@ -1,0 +1,9 @@
+class Solution:
+    def countMatches(self, items: List[List[str]], ruleKey: str, ruleValue: str) -> int:
+        asd=['type','color','name']
+        c=asd.index(ruleKey)
+        ans=0
+        for i in items:
+            if i[c]==ruleValue:
+                ans+=1
+        return ans
