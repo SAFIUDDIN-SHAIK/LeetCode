@@ -1,0 +1,9 @@
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        ans=0
+        l=len(s)
+        for j in range(l):
+            for k in range(j+1,l+1):
+                if s[j:k]==s[j:k][::-1]:
+                    ans+=1
+        return ans
