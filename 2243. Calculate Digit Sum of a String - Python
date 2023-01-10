@@ -1,0 +1,28 @@
+class Solution:
+    def digitSum(self, a: str, k: int) -> str:
+        def st(s):
+            #print(s)
+            if len(s)<=k:
+                sum=0
+                for i in s:
+                    sum+=int(i)
+                return [str(sum)]
+            t=s[k:]
+            q=s[:k]
+            sum=0
+            for i in q:
+                sum+=int(i)
+            l=[str(sum)]+st(t)
+            return l
+        lis=st(a)
+        if len(a)<=k:
+            return a
+        #print(lis)
+        a=''.join(lis)
+        while len(a)>k:
+            #print(a)
+            lis=st(a)
+            a=''.join(lis)
+            
+        c= ''.join(lis)
+        return c
