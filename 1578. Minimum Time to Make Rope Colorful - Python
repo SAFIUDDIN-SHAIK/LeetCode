@@ -1,0 +1,17 @@
+class Solution:
+    def minCost(self, c: str, nt: List[int]) -> int:
+        ptr = 1
+        t = 0
+        ans = 0
+        while ptr < len(c):
+            if c[t] == c[ptr]:
+                if nt[ptr] < nt[t]:
+                    ans += nt[ptr]
+                else:
+                    ans += nt[t]
+                    t = ptr
+                # print(nt[t])
+            else:
+                t = ptr
+            ptr += 1
+        return ans
