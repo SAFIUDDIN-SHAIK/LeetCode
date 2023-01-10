@@ -1,0 +1,13 @@
+class Solution:
+    def partitionString(self, st: str) -> int:
+        c = 1
+        d = {}
+        s = ''
+        for i in st:
+            if i in d:
+                c += 1
+                d = {}
+                d[i] = True
+            else:
+                d[i] = True
+        return c
