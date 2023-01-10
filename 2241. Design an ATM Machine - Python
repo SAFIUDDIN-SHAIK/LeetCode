@@ -1,0 +1,75 @@
+class ATM:
+
+    def __init__(self):
+        self.n=[0]*5
+        
+
+    def deposit(self, banknotescount: List[int]) -> None:
+        for i in range(len(banknotescount)):
+            self.n[i]+=banknotescount[i]
+
+    def withdraw(self, a: int) -> List[int]:
+        l=[0,0,0,0,0]
+        t=[i for i in self.n]
+        if self.n[4] and a>=500:
+            c=a//500
+            if c>self.n[4]:
+                a-=self.n[4]*500
+                l[4]=self.n[4]
+                self.n[4]=0
+            else:
+                a-=c*500
+                l[4]=c
+                self.n[4]-=c
+        if self.n[3] and a>=200:
+            c=a//200
+            if c>self.n[3]:
+                a-=self.n[3]*200
+                l[3]=self.n[3]
+                self.n[3]=0
+            else:
+                a-=c*200
+                l[3]=c
+                self.n[3]-=c
+        if self.n[2] and a>=100:
+            c=a//100
+            if c>self.n[2]:
+                a-=self.n[2]*100
+                l[2]=self.n[2]
+                self.n[2]=0
+            else:
+                a-=c*100
+                l[2]=c
+                self.n[2]-=c
+        if self.n[1] and a>=50:
+            c=a//50
+            if c>self.n[1]:
+                a-=self.n[1]*50
+                l[1]=self.n[1]
+                self.n[1]=0
+            else:
+                a-=c*50
+                l[1]=c
+                self.n[1]-=c
+        if self.n[0] and a>=20:
+            c=a//20
+            if c>self.n[0]:
+                a-=self.n[0]*20
+                l[0]=self.n[0]
+                self.n[0]=0
+            else:
+                a-=c*20
+                l[0]=c
+                self.n[0]-=c
+        if a:
+            self.n=[i for i in t]
+            return [-1]
+        else:
+            return l
+        
+
+
+# Your ATM object will be instantiated and called as such:
+# obj = ATM()
+# obj.deposit(banknotesCount)
+# param_2 = obj.withdraw(amount)
