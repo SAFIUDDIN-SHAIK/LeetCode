@@ -1,0 +1,19 @@
+class Solution:
+    def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        l=[]
+        q=len(grid)
+        q1=len(grid[0])
+        k=k%(q*q1)
+        for i in grid:
+            for j in i:
+                l.append(j)
+        t=l[-k:]+l[:q*q1-k]
+        ans=[]
+        k=0
+        for i in range(q):
+            a=[]
+            for j in range(q1):
+                a.append(t[k])
+                k+=1
+            ans.append(a)
+        return ans
