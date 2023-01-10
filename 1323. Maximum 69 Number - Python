@@ -1,0 +1,7 @@
+class Solution:
+    def maximum69Number (self, num: int) -> int:
+        num=str(num)
+        if '6' in num:
+            c=num.index('6')
+            num=num[:c]+'9'+num[c+1:]
+        return int(num)
