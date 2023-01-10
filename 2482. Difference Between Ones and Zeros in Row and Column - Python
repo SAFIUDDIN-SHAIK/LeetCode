@@ -1,0 +1,29 @@
+class Solution:
+    def onesMinusZeros(self, grid: List[List[int]]) -> List[List[int]]:
+        z = []
+        o = []
+        for i in range(len(grid)):
+            z.append(grid[i].count(0))
+            o.append(grid[i].count(1))
+        ans = []
+        z1 = []
+        o1 = []
+        for i in range(len(grid[0])):
+            O = 0
+            Z = 0
+            for j in range(len(grid)):
+                if grid[j][i]:
+                    O += 1
+                else:
+                    Z += 1
+            o1.append(O)
+            z1.append(Z)
+        print(z1)
+        print(o1)
+        l = len(z1)
+        for i in range(len(grid)):
+            t = []
+            for j in range(l):
+                t.append(o[i] + o1[j] - z[i] - z1[j])
+            ans.append(t)
+        return ans
