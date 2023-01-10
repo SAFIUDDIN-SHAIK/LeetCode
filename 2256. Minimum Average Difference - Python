@@ -1,0 +1,27 @@
+class Solution:
+    def minimumAverageDifference(self, nums: List[int]) -> int:
+        f = []
+        b = []
+        s = 0
+        c = 0
+        for i in nums:
+            s += i
+            c += 1
+            f.append(s//c)
+
+        for i in nums:
+            s -= i
+            c -= 1
+            if c:
+                b.append(s//c)
+            else:
+                b.append(0)
+        
+        ans = 100001
+        ind = -1
+        for i in range(len(nums)):
+            if ans > abs(f[i] - b[i]):
+                ans = abs(f[i] - b[i])
+                ind = i
+        
+        return ind
