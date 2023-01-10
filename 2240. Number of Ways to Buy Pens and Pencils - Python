@@ -1,0 +1,13 @@
+class Solution:
+    def waysToBuyPensPencils(self, total: int, cost1: int, cost2: int) -> int:
+        c=0
+        if cost1 > total and cost2 > total:
+            return 1
+        m=max(cost1,cost2)
+        mi=min(cost1,cost2)
+        if m > total:
+            return total//mi + 1
+        while total >= 0:
+            c+=total//mi + 1
+            total -= m
+        return c
