@@ -1,0 +1,27 @@
+class Solution:
+    def minTime(self, n: int, edges: List[List[int]], hasApple: List[bool]) -> int:
+        d = {}
+        for i, j in edges:
+            if i in d:
+                d[i].append(j)
+            elif i not in d:
+                d[i] = [j]
+            if j in d:
+                d[j].append(i)
+            elif j not in d:
+                d[j] = [i]
+        l = [0 for i in range(n)]
+        for i in d:
+            l[i] = d[i]
+        vis = {}
+        def f(a):
+            if a in vis:
+                return 0
+            vis[a] = True
+            ans = 0
+            for i in l[a]:
+                ans += f(i)
+            if ans:
+                return ans + 2
+            return 2 if hasApple[a] else 0
+        return max(f(0) - 2, 0)
