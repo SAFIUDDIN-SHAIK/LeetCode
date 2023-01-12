@@ -1,0 +1,25 @@
+class Solution:
+    def countSubTrees(self, n: int, edges: List[List[int]], labels: str) -> List[int]:
+
+        ans = [0] * n
+        l = []
+        for i in range(n):
+            l.append([])
+        for i, j in edges:
+            l[i].append(j)
+            l[j].append(i)
+        
+        def f(node, par):
+            c = [0] * 26
+            for i in l[node]:
+                if i == par:
+                    continue
+                temp = f(i, node)
+                for j in range(26):
+                    c[j] += temp[j]
+            ans[node] = c[ord(labels[node]) - ord('a')] + 1
+            c[ord(labels[node]) - ord('a')] += 1
+            return c
+        
+        f(0, -1)
+        return ans
