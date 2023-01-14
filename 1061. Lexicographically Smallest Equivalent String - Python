@@ -1,0 +1,39 @@
+class Solution:
+    def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
+        d = {}
+        d1 = {}
+
+        for i in range(26):
+            d[chr(ord('a') + i)] = chr(ord('a') + i)
+            d1[chr(ord('a') + i)] = set(chr(ord('a') + i))
+        # print(d1)
+        n = len(s1)
+        for i in range(n):
+            c1 = s1[i]
+            c2 = s2[i]
+            g1 = d[c1]
+            g2 = d[c2]
+            if g1 != g2:
+                print(g1)
+                set1 = d1[g1]
+                set2 = d1[g2]
+                if ord(g1) < ord(g2):
+                    for c in set2:
+                        d[c] = g1
+                    for j in set2:
+                        set1.add(j)
+                    d1[g1] = set1
+                    d1.pop(g2)
+                else:
+                    for c in set1:
+                        d[c] = g2
+                    for j in set1:
+                        set2.add(j)
+                    d1[g2] = set2
+                    d1.pop(g1)
+        l = [i for i in baseStr]
+        for i in range(len(l)):
+            c = l[i]
+            g = d[c]
+            l[i] = g
+        return "".join(l)
