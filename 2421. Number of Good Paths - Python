@@ -1,0 +1,33 @@
+class UnionFind(object):
+    def __init__(self, l):
+        self.s = [i for i in range(len(l))]
+        self.r = [0]*len(l)
+        self.count = [collections.Counter({i:1}) for i in l]
+
+    def find_set(self, n):
+        st = []
+        while self.s[n] != n:
+            st.append(n)
+            n = self.s[n]
+        while st:
+            self.s[st.pop()] = n
+        return n
+
+    def union_set(self, x, y, a):
+        x, y = self.find_set(x), self.find_set(y)
+        if x == y:
+            return 0
+        if self.r[x] > self.r[y]:
+            x, y = y, x
+        self.s[x] = self.s[y]
+        if self.r[x] == self.r[y]:
+            self.r[y] += 1
+        countx, county = self.count[x][a], self.count[y][a]
+        self.count[y] = collections.Counter({a:countx+county})
+        return countx*county
+
+class Solution:
+    def numberOfGoodPaths(self, vals: List[int], edges: List[List[int]]) -> int:
+        edges.sort(key=lambda x: max(vals[x[0]], vals[x[1]]))
+        uf = UnionFind(vals)
+        return len(vals)+sum(uf.union_set(i, j, max(vals[i], vals[j])) for i, j in edges)
