@@ -1,0 +1,13 @@
+class Solution:
+    def maxSubarraySumCircular(self, l: List[int]) -> int:
+        ans1 = self.f(l)
+        ans2 = sum(l) + self.f([-i for i in l[1:-1]])
+        return max(ans1, ans2)
+
+    def f(self, l) -> int:
+        m = -float('inf')
+        s = 0
+        for i in l:
+            s = i + max(s, 0)
+            m = max(m, s)
+        return m
