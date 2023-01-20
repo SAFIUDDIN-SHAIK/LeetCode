@@ -1,0 +1,21 @@
+class Solution:
+    def findSubsequences(self, nums: List[int]) -> List[List[int]]:
+        ans = set()
+        ss = []
+
+        def f(i, p):
+            if i == len(nums):
+                if len(ss) > 1:
+                    ans.add(tuple(ss))
+                return
+
+            f(i + 1, p)
+
+            if nums[i] >= p:
+                ss.append(nums[i])
+                f(i + 1, nums[i])
+                ss.pop()
+            
+        f(0, -101)
+
+        return list(ans)
