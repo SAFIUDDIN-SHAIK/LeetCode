@@ -1,0 +1,25 @@
+class Solution:
+  def restoreIpAddresses(self, s: str) -> List[str]:
+
+    ans = []
+
+    def f(curr, l):
+        if len(l) == 4 and curr == len(s):
+            ans.append(l[0] + '.' + l[1] + '.' + l[2] + '.' + l[3])
+            return
+        if len(l) == 4 or curr == len(s):
+            return
+
+        for i in range(1, 4):
+            if (curr + i > len(s)) or (i > 1 and s[curr] == '0'):
+                return
+
+            temp = s[curr: curr + i]
+
+            if int(temp) > 255:
+                return
+            f(curr + i, l + [temp])
+
+    f(0, [])
+
+    return ans
