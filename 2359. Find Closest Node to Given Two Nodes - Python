@@ -1,0 +1,25 @@
+class Solution(object):
+    def closestMeetingNode(self, edges, node1, node2):
+    
+        def f(n):
+
+            d = {}
+            i = 0
+
+            while n != -1:
+            
+                if n in d:
+                    break
+            
+                d[n] = i
+                i += 1
+                n = edges[n]
+            
+            return d
+        
+        n1, n2 = f(node1), f(node2)
+        temp = set(iter(n1.keys())) & set(iter(n2.keys()))
+        
+        if temp:
+            return min(temp, key=lambda x: (max(n1[x], n2[x]), x))
+        return -1
