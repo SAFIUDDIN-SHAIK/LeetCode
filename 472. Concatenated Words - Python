@@ -1,0 +1,11 @@
+class Solution:
+    def findAllConcatenatedWordsInADict(self, words: List[str]) -> List[str]:
+        s = set(words)
+
+        def f(st):
+            for i in range(1, len(st)):
+                if st[:i] in s and (st[i:] in s or f(st[i:])):
+                    return True
+            return False
+        l = [i for i in words if f(i)]
+        return l
