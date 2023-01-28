@@ -1,0 +1,61 @@
+class SummaryRanges {
+
+    private TreeMap<Integer, Integer> d;
+
+    public SummaryRanges() {
+
+        d = new TreeMap<>(); 
+    }
+    
+    public void addNum(int num) {
+
+        final Map.Entry<Integer, Integer> d2 = d.floorEntry(num); 
+        int l = num, r = num;
+        
+        if (d2 != null) {
+        
+            final int temp = d2.getValue();
+        
+            if (temp >= num) {
+        
+                return;
+        
+            }
+        
+            if (temp == num - 1) {
+        
+                l = d2.getKey();
+        
+            }
+        
+        }
+        
+        final Map.Entry<Integer, Integer> num1 = d.higherEntry(num); 
+        
+        if (num1 != null && num1.getKey() == num + 1) {
+        
+            r = num1.getValue();
+            d.remove(num + 1);
+        
+        }
+        
+        d.put(l, r);
+    
+    }
+    
+    public int[][] getIntervals() {
+    
+        final int[][] ans = new int[d.size()][2];
+        int i = 0;
+    
+        for (Map.Entry<Integer, Integer> l : d.entrySet()) {
+    
+            ans[i][0] = l.getKey();
+            ans[i++][1] = l.getValue();
+    
+        }
+    
+        return ans; 
+    
+    }
+}
