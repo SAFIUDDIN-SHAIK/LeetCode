@@ -1,0 +1,64 @@
+class LFUCache:
+
+    def __init__(self, capacity: int):
+        
+        self.cap = capacity
+        self.n = 0
+        self.mn = float("inf")
+        self.ftn = collections.defaultdict(collections.OrderedDict)
+        self.d = {}
+
+    def get(self, key: int) -> int:
+        
+        if key not in self.d:
+            return -1
+        
+        num = self.ftn[self.d[key]][key]
+        self.f(key, num)
+        
+        return num
+
+    def put(self, key: int, value: int) -> None:
+        
+        if self.cap <= 0:
+            return
+
+        if key not in self.d and self.n == self.cap:
+
+            del self.d[self.ftn[self.mn].popitem(last=False)[0]]
+            
+            if not self.ftn[self.mn]:
+                del self.ftn[self.mn]
+            
+            self.n -= 1
+        
+        self.f(key, value)
+
+    def f(self, key: int, value: int) -> None:
+        num = 0
+        
+        if key in self.d:
+            
+            num = self.d[key]
+            del self.ftn[num][key]
+            
+            if not self.ftn[num]:
+            
+                del self.ftn[num]
+            
+                if self.mn == num:
+            
+                    self.mn += 1
+            
+            self.n -= 1
+
+        num += 1
+        self.mn = min(self.mn, num)
+        self.d[key] = num
+        self.ftn[num][key] = value
+        self.n += 1
+
+# Your LFUCache object will be instantiated and called as such:
+# obj = LFUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
