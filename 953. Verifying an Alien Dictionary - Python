@@ -1,0 +1,33 @@
+class Solution:
+    def isAlienSorted(self, words: List[str], order: str) -> bool:
+
+        if len(words) < 2:
+            return True
+        
+        self.d = {}
+        for i in range(len(order)):
+            self.d[order[i]] = i
+
+        for i in range(len(words) - 1):
+            if self.f(words[i], words[i+1]):
+                return False
+        
+        return True
+
+    def f(self, s1: str, s2: str) -> bool:
+        i = 0
+        n1 = len(s1)
+        n2 = len(s2)
+
+        while i < n1 and i < n2:
+            o1 = self.d[s1[i]]
+            o2 = self.d[s2[i]]
+            i += 1
+            if o1 < o2:
+                return False
+            elif o1 > o2:
+                return True
+            
+        if i < n1:
+            return True
+        return False
