@@ -1,0 +1,14 @@
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1:
+            return s
+        ans = ["" for i in range(numRows)]
+        ind = 0
+        r = -1
+        for i in s:
+            ans[ind] += i
+            if ind == 0 or ind == numRows - 1:
+                r *= -1
+            ind += r
+        
+        return ''.join(ans)
