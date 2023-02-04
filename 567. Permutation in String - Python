@@ -1,0 +1,15 @@
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        l = [0 for i in range(26)]
+        for i in s1:
+            l[ord(i) - ord('a')] += 1
+        
+        n = len(s1)
+        for i in range(len(s2) - n + 1):
+            arr = [0 for i in range(26)]
+
+            for j in range(i,n+i):
+                arr[ord(s2[j]) - ord('a')] += 1
+            if arr == l:
+                return True
+        return False
