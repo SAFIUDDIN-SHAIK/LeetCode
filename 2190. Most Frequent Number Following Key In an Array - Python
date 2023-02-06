@@ -1,0 +1,15 @@
+class Solution:
+    def mostFrequent(self, nums: List[int], key: int) -> int:
+        d = {}
+        d[0] = 0
+        for i in range(len(nums) - 1):
+            if nums[i] == key:
+                if nums[i + 1] in d:
+                    d[nums[i + 1]] += 1
+                else:
+                    d[nums[i + 1]] = 1
+        ans = 0
+        for i in d:
+            if d[i] > d[ans]:
+                ans = i
+        return ans
