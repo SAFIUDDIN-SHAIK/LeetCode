@@ -1,0 +1,19 @@
+class Solution:
+    def totalFruit(self, fruits: List[int]) -> int:
+        d = {}
+        l = 0
+        ans = 0
+        for i in range(len(fruits)):
+            if fruits[i] in d:
+                d[fruits[i]] += 1
+            else:
+                d[fruits[i]] = 1
+            
+            while len(d) > 2:
+                d[fruits[l]] -= 1
+                if not d[fruits[l]]:
+                    d.pop(fruits[l])
+                l += 1
+            ans = max(ans, i - l + 1)
+        
+        return ans
