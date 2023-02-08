@@ -1,0 +1,16 @@
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        i = 0
+        ind = 0
+        p = 0
+        ans = 0
+
+        while i < n - 1:
+            ind = max(ind, nums[i] + i)
+            if i == p:
+                p = ind
+                ans += 1
+            i += 1
+        
+        return ans
