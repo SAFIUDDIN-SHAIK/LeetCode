@@ -1,0 +1,14 @@
+class Solution:
+    def distinctNames(self, ideas: List[str]) -> int:
+        ans = 0
+        l = [set() for _ in range(26)]
+
+        for i in ideas:
+            l[ord(i[0]) - 97].add(i[1:])
+
+        for i in range(25):
+            for j in range(i + 1, 26):
+                n = len(l[i] & l[j])
+                ans += 2 * (len(l[i]) - n) * (len(l[j]) - n)
+
+        return ans
