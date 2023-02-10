@@ -1,0 +1,25 @@
+class Solution:
+    def maxDistance(self, grid: List[List[int]]) -> int:
+        r, c = len(grid), len(grid[0])
+        l = collections.deque()
+        
+        for i in range(r):
+            for j in range(c):
+                if grid[i][j] == 1:
+                    for a, b in ((i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)):
+                        l.append((a, b))
+        
+        ans = 0
+        while l:
+            ans += 1
+            n = len(l)
+            
+            for _ in range(n):
+                i, j = l.popleft()
+                if 0 <= i < r and 0 <= j < c and grid[i][j] == 0:
+                    grid[i][j] = ans
+                    
+                    for a, b in ((i + 1, j), (i - 1, j), (i, j + 1), (i, j - 1)):
+                        l.append((a, b))
+        
+        return ans - 1 if ans != 1 else -1
