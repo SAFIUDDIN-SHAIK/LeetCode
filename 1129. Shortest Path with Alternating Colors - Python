@@ -1,0 +1,35 @@
+class Solution:
+    def shortestAlternatingPaths(self, n: int, redEdges: List[List[int]], blueEdges: List[List[int]]) -> List[int]:
+        r = defaultdict(list)
+        b = defaultdict(list)
+
+        for i, j in redEdges:
+            r[i].append(j)
+
+        for i, j in blueEdges:
+            b[i].append(j)
+
+        ans = [-1 for i in range(n)]
+
+        q = deque()
+        q.append([0, 0, None])
+        visit = set((0, None))
+
+        while q:
+            node, length, prev_edge_color = q.popleft()
+            if ans[node] == -1:
+                ans[node] = length
+
+            if prev_edge_color != "RED":
+                for i in r[node]:
+                    if (i, "RED") not in visit:
+                        visit.add((i, "RED"))
+                        q.append([i, length + 1, "RED"])
+
+            if prev_edge_color != "BLUE":
+                for i in b[node]:
+                    if (i, "BLUE") not in visit:
+                        visit.add((i, "BLUE"))
+                        q.append([i, length + 1, "BLUE"])
+
+        return ans
