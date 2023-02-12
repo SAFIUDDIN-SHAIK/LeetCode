@@ -1,0 +1,22 @@
+class Solution:
+    def minimumFuelCost(self, roads: List[List[int]], seats: int) -> int:
+
+        self.r = defaultdict(list)
+        for i, j in roads:
+            self.r[i].append(j)
+            self.r[j].append(i)
+        self.seats = seats
+        self.ans = 0
+        self.dfs(0, -1)
+        return self.ans
+
+    def dfs(self, node, prev):
+
+        city = 0
+        for i in self.r[node]:
+            if i != prev:
+                num = self.dfs(i, node)
+                city += num
+                self.ans += int(ceil(num/self.seats))
+        
+        return city + 1
