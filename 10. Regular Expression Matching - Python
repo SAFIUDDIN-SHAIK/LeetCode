@@ -1,0 +1,28 @@
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+
+        d = {}
+
+        def dfs(i, j):
+            if (i, j) in d:
+                return False
+            n1 = len(s)
+            n2 = len(p)
+            if i >= n1 and j >= n2:
+                return True
+            if j >= n2:
+                return False
+            
+            b = (i < n1 and (s[i] == p[j] or p[j] == "."))
+
+            if (j + 1) < n2 and p[j + 1] == "*":
+                d[(i, j)] = (dfs(i, j + 2) or (b and dfs(i + 1, j)))
+                return d[(i, j)]
+            
+            if b:
+                d[(i, j)] = dfs(i+1, j+1)
+                return d[(i, j)]
+            d[(i, j)] = False
+            return False
+        
+        return dfs(0, 0)
