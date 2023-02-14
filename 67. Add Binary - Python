@@ -1,3 +1,5 @@
+Solution 1#
+
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
         num1=0
@@ -20,4 +22,37 @@ class Solution:
             else:
                 ans='0'+ans
             t=t>>1
+        return ans
+
+solution 2#
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        ans = ""
+        if len(a) < len(b):
+            a = "0"*(len(b) - len(a)) + a
+        if len(a) > len(b):
+            b = "0"*(len(a) - len(b)) + b
+        c = ""
+        for i, j in zip(a[::-1], b[::-1]):
+            print(i, j)
+            if i == "1" and j == "1":
+                if c == "1":
+                    ans = "1" + ans
+                else:
+                    ans = "0" + ans
+                    c = "1"
+            elif (i == "1" and j == "0") or (i == "0" and j == "1"):
+                if c == "1":
+                    ans = "0" + ans
+                else:
+                    ans = "1" + ans
+            else:
+                if c == "1":
+                    ans = "1" + ans
+                    c = ""
+                else:
+                    ans = "0" + ans
+        if c == "1":
+            ans = "1" + ans
         return ans
