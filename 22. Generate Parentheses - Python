@@ -1,0 +1,18 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        
+        ans = []
+        
+        def gen(o, c, s):
+            if not o and not c:
+                ans.append(s)
+            if o < c and o:
+                gen(o - 1, c, s + '(')
+                gen(o, c - 1, s + ')')
+            elif o and c:
+                gen(o - 1, c, s + '(')
+            elif c:
+                gen(o, c - 1, s + ')')
+        
+        gen(n, n, '')
+        return ans
