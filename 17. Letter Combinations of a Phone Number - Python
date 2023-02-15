@@ -1,0 +1,26 @@
+class Solution:
+    def letterCombinations(self, d: str) -> List[str]:
+        a = ['', '', 'abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
+        ans = []
+        if not d:
+            return ans
+        for i in a[int(d[0])]:
+            s = i
+            if len(d) > 1:
+                for j in a[int(d[1])]:
+                    s = i + j
+                    if len(d) > 2:
+                        for k in a[int(d[2])]:
+                            s = i + j + k
+                            if len(d) > 3:
+                                for l in a[int(d[3])]:
+                                    s = i + j + k + l
+                                    ans.append(s)
+                            else:
+                                ans.append(s)
+                    else:
+                        ans.append(s)
+            else:
+                ans.append(s)
+
+        return ans
