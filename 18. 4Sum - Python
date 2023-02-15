@@ -1,0 +1,26 @@
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        ans = []
+        d = {}
+        nums.sort()
+        n = len(nums)
+        for i in range(n):
+            for j in range(i + 1, n):
+                l = j + 1
+                r = n - 1
+                s = nums[i] + nums[j]
+                while l < r:
+                    t = s + nums[l] + nums[r]
+                    if t == target:
+                        if (nums[i], nums[j], nums[l], nums[r]) in d:
+                            l += 1
+                            continue
+                        else:
+                            d[(nums[i], nums[j], nums[l], nums[r])] = True
+                            ans.append([nums[i], nums[j], nums[l], nums[r]])
+                            l += 1
+                    elif t > target:
+                        r -= 1
+                    else:
+                        l += 1
+        return ans
