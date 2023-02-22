@@ -1,0 +1,27 @@
+class Solution:
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        l = 0
+        h = 0
+        for i in weights:
+            l = max(l, i)
+            h += i
+        ans = 0
+        while l <= h:
+            m = l + (h - l) // 2
+            if self.f(weights, m, days):
+                ans = m
+                h = m - 1
+            else:
+                l = m + 1
+        return ans
+
+    def f(self, arr, m, n):
+        d = 1
+        s = 0
+        for i in arr:
+            if i + s <= m:
+                s += i
+            else:
+                s = i
+                d += 1
+        return d <= n
