@@ -1,0 +1,21 @@
+import heapq
+
+class Solution:
+    def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
+
+        l = [(i, j) for i, j in zip(capital, profits)]
+        heapify(l)
+        h = []
+
+        while k:
+
+            while l and l[0][0] <= w:
+                heappush(h, -heappop(l)[1])
+
+            if not h:
+                break
+
+            w -= heappop(h)
+            k -= 1
+            
+        return w
