@@ -1,0 +1,14 @@
+class Solution:
+    def minimumDeviation(self, nums: List[int]) -> int:
+        l = [-i*2 if i & 1 else -i for i in nums]
+        ans, m = float('inf'), max(l)
+        heapq.heapify(l)
+        while True:
+            n = heapq.heappop(l)
+            ans = min(ans, m - n)
+            if n & 1:
+                break
+            n = n >> 1
+            m = max(m, n)
+            heapq.heappush(l, n)
+        return ans
