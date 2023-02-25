@@ -1,0 +1,11 @@
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        mn = []
+        m = sys.maxsize
+        for i in prices:
+            m = min(i, m)
+            mn.append(m)
+        m = 0
+        for i in range(len(prices)):
+            m = max(m, prices[i] - mn[i])
+        return m
