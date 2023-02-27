@@ -1,0 +1,27 @@
+class Solution(object):
+    def construct(self, grid):
+
+        def f(x, y, n):
+            v = grid[x][y]
+            flag = True
+            node = Node(False, False, None, None, None, None)
+            for i in range(n):
+                for j in range(n):
+                    if grid[x+i][y+j] != v:
+                        flag = False
+                        break
+            if flag:
+                node.isLeaf = True
+                node.val = True if v==1 else False
+            else:
+                node.isLeaf = False
+                num = n // 2
+                node.topLeft = f(x, y, num)
+                node.topRight = f(x, y+num, num)
+                node.bottomLeft = f(x+num, y, num)
+                node.bottomRight = f(x+num, y+num, num)
+            return node
+            
+        
+        n = len(grid)
+        return f(0, 0, n)
