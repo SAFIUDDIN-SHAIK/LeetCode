@@ -1,0 +1,41 @@
+class Solution:
+    def minJumps(self, arr: List[int]) -> int:
+        d = defaultdict(list)
+        ans = 0
+        n = len(arr)
+        for i in range(n):
+            d[arr[i]].append(i)
+        
+        if n < 2:
+            return 0
+        
+        q = deque()
+        q.append(0)
+        vis = [False] * n
+        vis[0] = True
+        while q:
+            s = len(q)
+            while s:
+                s -= 1
+                i = q.popleft()
+
+                if i == n - 1:
+                    return ans
+
+                if i + 1 < n and not vis[i + 1]:
+                    q.append(i + 1)
+                    vis[i + 1] = True
+                if i - 1 > -1 and not vis[i - 1]:
+                    q.append(i - 1)
+                    vis[i - 1] = True
+                
+                for j in d[arr[i]]:
+                    if not vis[j]:
+                        q.append(j)
+                        vis[j] = True
+
+                d[arr[i]] = []
+            
+            ans += 1
+        
+        return ans
