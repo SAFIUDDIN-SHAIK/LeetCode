@@ -1,0 +1,17 @@
+class Solution {
+ public:
+  Solution(ListNode* head) : head(head) {}
+
+  int getRandom() {
+    int ans = -1;
+    int i = 1;
+
+    for (ListNode* node = head; node; node = node->next, ++i)
+      if (rand() % i == 0)
+        ans = node->val;
+    return ans;
+  }
+
+ private:
+  ListNode* head;
+};
