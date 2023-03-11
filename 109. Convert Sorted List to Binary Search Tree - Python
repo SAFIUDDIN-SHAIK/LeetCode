@@ -1,0 +1,26 @@
+class Solution:
+  def sortedListToBST(self, head: ListNode) -> TreeNode:
+    def mid(node):
+      p = None
+      s = node
+      f = node
+
+      while f and f.next:
+        p = s
+        s = s.next
+        f = f.next.next
+      p.next = None
+
+      return s
+
+    if not head:
+      return None
+    if not head.next:
+      return TreeNode(head.val)
+
+    mid = mid(head)
+    root = TreeNode(mid.val)
+    root.left = self.sortedListToBST(head)
+    root.right = self.sortedListToBST(mid.next)
+
+    return root
