@@ -1,0 +1,24 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        
+        l = []
+
+        def num(s, head):
+
+            if not head:
+                return
+            s += str(head.val)
+            if not head.left and not head.right:
+                l.append(int(s))
+            num(s, head.left)
+            num(s, head.right)
+        
+        num('0', root)
+
+        return sum(l)
