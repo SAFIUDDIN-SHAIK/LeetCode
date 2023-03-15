@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isCompleteTree(self, root: Optional[TreeNode]) -> bool:
+        f = 0
+        q = deque()
+        q.append(root)
+        while q:
+            n = len(q)
+            while n:
+                n -= 1
+                p = q.popleft()
+                if not p:
+                    f = 1
+                if p and f:
+                    return False
+
+                if p:
+                    q.append(p.left)
+                    q.append(p.right)
+        
+        return True
