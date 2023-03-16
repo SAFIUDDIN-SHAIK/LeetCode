@@ -1,0 +1,19 @@
+class Solution:
+  def buildTree(self, inorder, postorder):
+    d = {num: i for i, num in enumerate(inorder)}
+
+    def f(i, j, x, y) -> Optional[TreeNode]:
+      if i > j:
+        return None
+
+      num = postorder[y]
+      ind = d[num]
+      n = ind - i
+
+      head = TreeNode(num)
+      head.left = f(i, ind - 1,  x, x + n - 1)
+      head.right = f(ind + 1, j,  x + n, y - 1)
+      
+      return head
+
+    return f(0, len(inorder) - 1, 0, len(postorder) - 1)
