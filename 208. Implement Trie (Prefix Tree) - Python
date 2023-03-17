@@ -1,0 +1,42 @@
+class TrieNode(object):
+    def __init__(self):
+        self.last = False
+        self.d = dict()
+
+
+class Trie(object):
+    def __init__(self):
+        self.head = TrieNode()
+
+    def insert(self, l):
+        curr = self.head
+
+        for i in l:
+            if i not in curr.d:
+                curr.d[i] = TrieNode()
+
+            curr = curr.d[i]
+
+        curr.last = True
+
+    def search(self, l):
+        curr = self.head
+
+        for i in l:
+            if i not in curr.d:
+                return False
+
+            curr = curr.d[i]
+
+        return curr.last
+
+    def startsWith(self, prefix):
+        curr = self.head
+
+        for i in prefix:
+            if i not in curr.d:
+                return False
+
+            curr = curr.d[i]
+
+        return True
