@@ -1,0 +1,33 @@
+class TrieNode:
+
+  def __init__(self):
+    self.l: Dict[str, TrieNode] = {}
+    self.isSt = False
+
+
+class WordDictionary:
+
+  def __init__(self):
+    self.head = TrieNode()
+
+  def addWord(self, st: str) -> None:
+
+    node: TrieNode = self.head
+    for i in st:
+      node = node.l.setdefault(i, TrieNode())
+    node.isSt = True
+
+  def search(self, st: str) -> bool:
+
+    return self._dfs(st, 0, self.head)
+
+  def _dfs(self, st: str, s: int, node: TrieNode) -> bool:
+
+    if s == len(st):
+      return node.isSt
+    if st[s] != '.':
+      child: TrieNode = node.l.get(st[s], None)
+
+      return self._dfs(st, s + 1, child) if child else False
+      
+    return any(self._dfs(st, s + 1, child) for child in node.l.values())
