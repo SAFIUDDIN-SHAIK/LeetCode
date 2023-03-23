@@ -1,0 +1,32 @@
+class Solution {
+ public:
+  int makeConnected(int n, vector<vector<int>>& con) {
+      
+    if (con.size() < n - 1)
+      return -1;
+
+    int ncon = 0;
+    vector<vector<int>> d(n);
+    unordered_set<int> vis;
+
+    for (const vector<int>& conn : con) {
+      d[conn[0]].push_back(conn[1]);
+      d[conn[1]].push_back(conn[0]);
+    }
+
+    for (int i = 0; i < n; ++i)
+      if (vis.insert(i).second) {
+        dfs(d, i, vis);
+        ++ncon;
+      }
+
+    return ncon - 1;
+  }
+
+ private:
+  void dfs(const vector<vector<int>>& d, int u, unordered_set<int>& vis) {
+    for (const int v : d[u])
+      if (vis.insert(v).second)
+        dfs(d, v, vis);
+  }
+};
