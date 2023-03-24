@@ -1,0 +1,21 @@
+class Solution:
+    def minReorder(self, n: int, con: List[List[int]]) -> int:
+        d = defaultdict(list)
+        for i, j in con:
+            d[i].append(j)
+            d[j].append(-i)
+
+        def dfs(u, p):
+
+            c = 0
+
+            for i in d[u]:
+                if abs(i) == p:
+                    continue
+                if i > 0:
+                    c += 1
+                c += dfs(abs(i), u)
+            
+            return c
+
+        return dfs(0, -1)
