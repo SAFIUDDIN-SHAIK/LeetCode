@@ -1,0 +1,22 @@
+class Solution:
+    def countPairs(self, n: int, edges: List[List[int]]) -> int:
+        def where(x):
+            if x != l[x]:
+                l[x] = where(l[x])
+            return l[x]
+        
+        def together(x, y):
+            x, y = map(where, (x, y))
+            if x < y:
+                l[y] = x
+            else:
+                l[x] = y
+
+        l = [i for i in range(n)]
+
+        for u, v in edges:
+            if l[u] != l[v]:
+                together(u, v)
+
+        c = list(Counter(where(k) for k in l).values())
+        return reduce(lambda count, x: (count[0] + x * count[1], count[1] + x), c, (0, 0))[0]
