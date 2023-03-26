@@ -1,0 +1,19 @@
+class Solution:
+  def longestCycle(self, edges: List[int]) -> int:
+    ans = -1
+    num = 1
+    l = [0] * len(edges)
+
+    for i in range(len(edges)):
+      if l[i]:
+        continue
+      temp = num
+      x = i
+      while x != -1 and not l[x]:
+        l[x] = num
+        num += 1
+        x = edges[x]
+      if x != -1 and l[x] >= temp:
+        ans = max(ans, num - l[x])
+
+    return ans
