@@ -1,0 +1,27 @@
+class Solution:
+    def maxSatisfaction(self, l: List[int]) -> int:
+        n = len(l)
+        l.sort()
+        I = 0
+        no = 0
+        while I < n and l[I] < 0:
+            no += l[I]
+            I += 1
+        
+        ps = 0
+        while I < n:
+            ps += l[I]
+            I += 1
+        
+        I = 0
+        no = abs(no)
+        
+        while I < n and no > ps:
+            no += l[I]
+            I += 1
+        
+        ans = 0
+        for j in range(I, n):
+            ans += l[j] * (j - I + 1)
+        
+        return ans
