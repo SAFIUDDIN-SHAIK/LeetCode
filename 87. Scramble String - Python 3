@@ -1,0 +1,19 @@
+class Solution:
+    @functools.lru_cache(None)
+    def isScramble(self, st1: str, st2: str) -> bool:
+
+        if st1 == st2:
+            return True
+
+        if collections.Counter(st1) != collections.Counter(st2):
+            return False
+
+        for i in range(1, len(st1)):
+
+            if self.isScramble(st1[:i], st2[:i]) and self.isScramble(st1[i:], st2[i:]):
+                return True
+
+            if self.isScramble(st1[:i], st2[len(st2) - i:]) and self.isScramble(st1[i:], st2[:len(st2) - i]):
+                return True
+
+        return False
