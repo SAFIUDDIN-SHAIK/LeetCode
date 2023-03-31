@@ -1,0 +1,40 @@
+class Solution:
+  def ways(self, pizza: List[str], num: int) -> int:
+
+    pizzaLen = len(pizza)
+    pizzaSliceLen = len(pizza[0])
+    l = [[0] * (pizzaSliceLen + 1) for _ in range(pizzaLen + 1)]
+
+    for i in range(pizzaLen):
+
+      for j in range(pizzaSliceLen):
+
+        l[i + 1][j + 1] = (pizza[i][j] == 'A') + \
+            l[i][j + 1] + l[i + 1][j] - l[i][j]
+
+    def hasApple(r1: int, r2: int, c1: int, c2: int) -> bool:
+
+      return (l[r2][c2] - l[r1][c2] - l[r2][c1] + l[r1][c1]) > 0
+
+    @functools.lru_cache(None)
+
+    def dp(x: int, y: int, num: int) -> int:
+
+      if num == 0:
+        return 1
+
+      ans = 0
+
+      for i in range(x + 1, pizzaLen):
+
+        if hasApple(x, i, y, pizzaSliceLen) and hasApple(i, pizzaLen, y, pizzaSliceLen):
+          ans += dp(i, y, num - 1)
+
+      for j in range(y + 1, pizzaSliceLen):
+        
+        if hasApple(x, pizzaLen, y, j) and hasApple(x, pizzaLen, j, pizzaSliceLen):
+          ans += dp(x, j, num - 1)
+
+      return ans
+
+    return dp(0, 0, num - 1) % (10**9 + 7)
