@@ -1,0 +1,44 @@
+class Solution:
+  def closedIsland(self, grid: List[List[int]]) -> int:
+
+    N = len(grid)
+    M = len(grid[0])
+
+    def f(i, j):
+
+      if i < 0 or i == N or j < 0 or j == M:
+
+        return
+
+      if grid[i][j] == 1:
+
+        return
+
+      grid[i][j] = 1
+      f(i + 1, j)
+      f(i - 1, j)
+      f(i, j + 1)
+      f(i, j - 1)
+
+    for i in range(N):
+
+      for j in range(M):
+
+        if i * j == 0 or i == N - 1 or j == M - 1:
+
+          if grid[i][j] == 0:
+
+            f(i, j)
+
+    ans = 0
+
+    for i in range(N):
+
+      for j in range(M):
+
+        if grid[i][j] == 0:
+
+          f(i, j)
+          ans += 1
+
+    return ans
