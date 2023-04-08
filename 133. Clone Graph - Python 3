@@ -1,0 +1,24 @@
+class Solution:
+  
+  def cloneGraph(self, node: 'Node') -> 'Node':
+
+    if not node:
+      return None
+
+    q = collections.deque([node])
+    d = {node: Node(node.val)}
+
+    while q:
+
+      neighList = q.popleft()
+
+      for neigh in neighList.neighbors:
+
+        if neigh not in d:
+
+          d[neigh] = Node(neigh.val)
+          q.append(neigh)
+
+        d[neighList].neighbors.append(d[neigh])
+
+    return d[node]
