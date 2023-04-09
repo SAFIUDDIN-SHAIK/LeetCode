@@ -1,0 +1,42 @@
+class Solution:
+  def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
+
+    N = len(colors)
+    ans = 0
+    num = 0
+    l = [[] for _ in range(N)]
+    dp = [0] * N
+    q = collections.deque()
+    c = [[0] * 26 for _ in range(N)]
+
+    for p, v in edges:
+
+      l[p].append(v)
+      dp[v] += 1
+
+    for i, degree in enumerate(dp):
+
+      if degree == 0:
+
+        q.append(i)
+
+    while q:
+
+      p = q.popleft()
+      num += 1
+      c[p][ord(colors[p]) - 97] += 1
+      ans = max(ans, c[p][ord(colors[p]) - 97])
+
+      for v in l[p]:
+
+        for i in range(26):
+
+          c[v][i] = max(c[v][i], c[p][i])
+
+        dp[v] -= 1
+
+        if dp[v] == 0:
+
+          q.append(v)
+
+    return ans if num == N else -1
