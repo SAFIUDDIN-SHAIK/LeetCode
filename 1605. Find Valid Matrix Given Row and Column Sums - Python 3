@@ -1,0 +1,42 @@
+class Solution:
+    def restoreMatrix(self, row: List[int], col: List[int]) -> List[List[int]]:
+        
+        n = len(row)
+        m = len(col)
+        c = 0
+        r = 0
+        a = []
+        
+        for I in range(n):
+            
+            t = []
+            
+            for j in range(m):
+                
+                t.append(0)
+                
+            a.append(t)
+            
+        n += m
+        
+        while n:
+            
+            n -= 1
+            N = min(row)
+            M = min(col)
+            i1 = row.index(N)
+            i2 = col.index(M)
+            
+            if N > M:
+                
+                a[i1][i2] += M
+                col[i2] = 100000001
+                row[i1] -= M
+            
+            else:
+                
+                a[i1][i2] += N
+                row[i1] = 100000001
+                col[i2] -= N
+                
+        return a
