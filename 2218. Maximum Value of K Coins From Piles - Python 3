@@ -1,0 +1,22 @@
+class Solution:
+    def maxValueOfCoins(self, piles: List[List[int]], k: int) -> int:
+
+        @functools.lru_cache(None)
+
+        def f(i, k):
+
+            if i == len(piles) or k == 0:
+
+                return 0
+
+            ans = f(i + 1, k)
+            num = 0
+
+            for j in range(min(len(piles[i]), k)):
+
+                num += piles[i][j]
+                ans = max(ans, num + f(i + 1, k - j - 1))
+
+            return ans
+
+        return f(0, k)
