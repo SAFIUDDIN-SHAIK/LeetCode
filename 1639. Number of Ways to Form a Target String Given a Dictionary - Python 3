@@ -1,0 +1,17 @@
+class Solution:
+    def numWays(self, words: List[str], target: str) -> int:
+        m, n = len(words[0]), len(target)
+        d = [Counter() for _ in range(m)]
+        for w in words:
+            for j, c in enumerate(w):
+                d[j][c] += 1
+
+        @functools.lru_cache(None)
+        def dfs(i, j):
+            if i == n:
+                return 1
+            if j == m:
+                return 0
+            return (dfs(i, j+1) + dfs(i+1, j+1) * d[j][target[i]]) % int(1e9 + 7)
+
+        return dfs(0, 0)
