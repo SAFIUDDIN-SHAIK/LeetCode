@@ -1,0 +1,27 @@
+class subTree:
+  def __init__(self, lm, rm, stm):
+
+    self.lm = lm
+    self.rm = rm
+    self.stm = stm
+
+
+class Solution:
+
+  def longestZigZag(self, root):
+
+    def f(root):
+
+      if not root:
+
+        return subTree(-1, -1, -1)
+
+      l = f(root.left)
+      r = f(root.right)
+      lz = l.rm + 1
+      rz = r.lm + 1
+      stm = max(lz, rz,l.stm, r.stm)
+
+      return subTree(lz, rz, stm)
+
+    return f(root).stm
