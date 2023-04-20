@@ -1,0 +1,36 @@
+class Solution {
+  public int widthOfBinaryTree(TreeNode root) {
+
+    if (root == null)
+      return 0;
+
+    int ans = 0;
+    Deque<Pair<TreeNode, Integer>> q = new ArrayDeque<>();
+    q.offer(new Pair<>(root, 1));
+
+    while (!q.isEmpty()) {
+
+      final int os = q.peekFirst().getValue() * 2;
+      ans = Math.max(ans, q.peekLast().getValue() - q.peekFirst().getValue() + 1);
+
+      for (int n = q.size(); n > 0; --n) {
+
+        final TreeNode head = q.peekFirst().getKey();
+        final int ind = q.pollFirst().getValue();
+
+        if (head.left != null)
+
+          q.offer(new Pair<>(head.left, ind * 2 - os));
+
+        if (head.right != null)
+
+          q.offer(new Pair<>(head.right, ind * 2 + 1 - os));
+
+      }
+
+    }
+
+    return ans;
+  }
+
+}
