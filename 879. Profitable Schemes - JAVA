@@ -1,0 +1,39 @@
+class Solution {
+  public int profitableSchemes(int n, int minProfit, int[] group, int[] profit) {
+
+    final int num = 1_000_000_007;
+    int[][][] l = new int[group.length + 1][n + 1][minProfit + 1];
+
+    for (int ind = 0; ind <= n; ++ind)
+
+      l[0][ind][0] = 1;
+
+    for (int K = 1; K <= group.length; ++K) {
+
+      final int temp = group[K - 1];
+      final int temp1 = profit[K - 1];
+
+      for (int ind = 0; ind <= n; ++ind)
+
+        for (int ind2 = 0; ind2 <= minProfit; ++ind2)
+        
+          if (ind < temp) {
+
+            l[K][ind][ind2] = l[K - 1][ind][ind2];
+
+          } 
+
+          else {
+
+            l[K][ind][ind2] = l[K - 1][ind][ind2] + l[K - 1][ind - temp][Math.max(0, ind2 - temp1)];
+            l[K][ind][ind2] %= num;
+
+          }
+
+    }
+
+    return l[group.length][n][minProfit];
+
+  }
+
+}
