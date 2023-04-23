@@ -1,0 +1,37 @@
+class Solution {
+
+ public:
+
+  int numberOfArrays(string s, int k) {
+
+    constexpr int M = 1'000'000'007;
+    const int n = s.length();
+    vector<int> l(n + 1);
+    l.back() = 1;
+
+    for (int i = n - 1; i >= 0; --i) {
+
+      if (s[i] == '0')
+
+        continue;
+
+      long TEMP = 0;
+
+      for (int j = i; j < n; ++j) {
+
+        TEMP = TEMP * 10 + (s[j] - '0');
+
+        if (TEMP > k)
+
+          break;
+
+        l[i] = (l[i] + l[j + 1]) % M;
+
+      }
+
+    }
+
+    return l[0];
+  }
+
+};
