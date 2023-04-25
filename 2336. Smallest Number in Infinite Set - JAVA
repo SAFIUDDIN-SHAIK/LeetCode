@@ -1,0 +1,26 @@
+class SmallestInfiniteSet {
+
+  public int popSmallest() {
+
+    if (l.isEmpty())
+
+      return p++;
+
+    final int mn = l.first();
+    l.remove(mn);
+    return mn;
+
+  }
+
+  public void addBack(int num) {
+
+    if (num < p)
+
+      l.add(num);
+
+  }
+
+  private int p = 1;
+  private TreeSet<Integer> l = new TreeSet<>();
+
+}
