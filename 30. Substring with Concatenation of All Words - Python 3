@@ -1,0 +1,33 @@
+class Solution:
+  def findSubstring(self, s: str, words: List[str]) -> List[int]:
+
+    if len(s) == 0 or words == []:
+
+      return []
+
+    k = len(words)
+    n = len(words[0])
+    ans = []
+    c = collections.Counter(words)
+
+    for i in range(len(s) - k * n + 1):
+
+      v = collections.defaultdict(int)
+      j = 0
+
+      while j < k:
+
+        w = s[i + j * n: i + j * n + n]
+        v[w] += 1
+
+        if v[w] > c[w]:
+
+          break
+
+        j += 1
+
+      if j == k:
+        
+        ans.append(i)
+
+    return ans
