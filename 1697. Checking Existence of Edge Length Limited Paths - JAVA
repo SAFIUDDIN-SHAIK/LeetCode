@@ -1,0 +1,89 @@
+class UnionFind {
+
+  public UnionFind(int n) {
+
+    node = new int[n];
+    parent = new int[n];
+
+    for (int i = 0; i < n; ++i)
+
+      node[i] = i;
+
+  }
+
+  public void unionByRank(int u, int v) {
+
+    final int parent1 = find(u);
+    final int parent2 = find(v);
+
+    if (parent1 == parent2)
+
+      return;
+
+    if (parent[parent1] < parent[parent2]) {
+
+      node[parent1] = node[parent2];
+
+    } else if (parent[parent1] > parent[parent2]) {
+
+      node[parent2] = node[parent1];
+
+    } else {
+
+      node[parent1] = node[parent2];
+      ++parent[parent2];
+
+    }
+
+  }
+
+  public int find(int parent) {
+
+    return node[parent] == parent ? parent : (node[parent] = find(node[parent]));
+
+  }
+
+  private int[] node;
+  private int[] parent;
+
+}
+
+class Solution {
+
+  public boolean[] distanceLimitedPathsExist(int n, int[][] edgeList, int[][] queries) {
+
+    boolean[] ans = new boolean[queries.length];
+    int[][] q = new int[queries.length][4];
+    UnionFind obj = new UnionFind(n);
+
+    for (int i = 0; i < queries.length; ++i) {
+
+      q[i][0] = queries[i][0];
+      q[i][1] = queries[i][1];
+      q[i][2] = queries[i][2];
+      q[i][3] = i;
+
+    }
+
+    Arrays.sort(q, (a, b) -> a[2] - b[2]);
+    Arrays.sort(edgeList, (a, b) -> a[2] - b[2]);
+
+    int i = 0;
+
+    for (int[] query : q) {
+
+      while (i < edgeList.length && edgeList[i][2] < query[2])
+
+        obj.unionByRank(edgeList[i][0], edgeList[i++][1]);
+
+      if (obj.find(query[0]) == obj.find(query[1]))
+
+        ans[query[3]] = true;
+
+    }
+
+    return ans;
+
+  }
+
+}
