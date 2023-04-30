@@ -1,0 +1,63 @@
+class Solution(object):
+    def maxNumEdgesToRemove(self, n, edges):
+        
+        def find(i, l):
+
+            if i != l[i]:
+
+                l[i] = find(l[i], l)
+
+            return l[i]
+
+        def unite(a, b, l):
+
+            a, b = find(a, l), find(b, l)
+
+            if a == b: return 0
+
+            l[a] = b
+
+            return 1
+            
+        ans = num1 = num2 = 0
+        l3 = [ i for i in range(n + 1)]
+
+        for I, i, j in edges:
+
+            if I == 3:
+
+                if unite(i, j, l3):
+
+                    num1 += 1
+                    num2 += 1
+
+                else:
+
+                    ans += 1
+                    
+        parent1 = l3[:]
+        parent2 = l3[:]
+
+        for i, j, k in edges:
+
+            if i == 1:
+
+                if unite(j, k, parent1):
+
+                    num1 += 1
+
+                else:
+
+                    ans += 1
+
+            elif i == 2:
+
+                if unite(j, k, parent2):
+
+                    num2 += 1
+
+                else:
+
+                    ans += 1
+        
+        return ans if num1 == num2 == n - 1 else -1
